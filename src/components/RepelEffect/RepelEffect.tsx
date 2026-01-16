@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { useRepelEffect } from '../../hooks/useRepelEffect';
 import styles from './RepelEffect.module.css';
 
