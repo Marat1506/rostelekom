@@ -1,0 +1,492 @@
+/* --- ОБЩИЕ СТИЛИ --- */
+
+.nomination {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 12rem;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.content {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: stretch; /* Растягиваем блоки по высоте */
+  gap: 3rem;
+}
+
+.numberContainer {
+  position: relative; /* Важно для позиционирования */
+  flex-shrink: 0;
+}
+
+.number {
+  width: 250px;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+.decorative {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.textContainer {
+  flex: 1;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: #000000;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  color: #333333;
+}
+
+/* --- LAYOUT 1: Финальная, точная версия --- */
+
+.layout1 .textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.layout1 .title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.layout1 .subtitle {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  color: #444444;
+  margin: 0;
+  padding-left: 16rem;
+  padding-bottom: 7rem;
+}
+
+.layout1 .decorativeWrapper {
+  position: absolute;
+  z-index: 2;
+  bottom: 10%;
+  left: 40%;
+  transform: translateX(0);
+}
+
+.layout1 .decorative {
+  width: 450px;
+  height: auto;
+}
+
+/* --- LAYOUT 2: ВЕРСИЯ С НАЛОЖЕНИЕМ ТЕКСТА --- */
+
+.layout2 .content {
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.layout2 .numberContainer {
+  position: relative; /* <<-- КЛЮЧЕВОЕ СВОЙСТВО */
+  display: flex;
+  align-items: center;
+}
+
+.layout2 .number {
+  width: 350px;
+  z-index: 1; /* Цифра будет ПОД текстом */
+  position: relative;
+}
+
+.layout2 .textAbove {
+  position: absolute;
+  z-index: 2; /* Текст будет НАД цифрой */
+  top: 50%;
+  left: 50%;
+  transform: translate(25%, -75%);
+  width: 520px;
+  pointer-events: none;
+}
+
+.layout2 .title {
+  font-size: 4.3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+  color: #000000;
+}
+
+.layout2 .subtitle {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  color: #333333;
+  margin: 0;
+  font-weight: 400;
+}
+
+.layout2 .decorative {
+  width: 500px;
+  height: auto;
+}
+
+.layout2 .content > .repel-effect-container {
+  flex-shrink: 0;
+}
+
+
+/* --- LAYOUT 3: НАЛОЖЕНИЕ НА ЦИФРУ СЛЕВА --- */
+
+/* 1. Основной контейнер - цифра слева, не по центру */
+.layout3 .content {
+  position: relative;
+  display: flex;
+  justify-content: flex-start; /* СЛЕВА, не center */
+  align-items: center;
+  flex-direction: initial;
+  min-height: 80vh;
+}
+
+/* 2. Контейнер с цифрой - это просто база, он будет в центре */
+.layout3 .numberContainer {
+  position: static; /* Сбрасываем, чтобы он не влиял на позиционирование */
+  flex-direction: initial;
+  align-items: initial;
+}
+
+/* 3. Увеличиваем цифру и ставим ее на нижний слой */
+.layout3 .number {
+  width: 450px; /* Увеличили цифру */
+  height: auto;
+  z-index: 1;
+}
+
+/* 4. Заголовок позиционируем абсолютно поверх цифры */
+.layout3 .titleAbove {
+  position: absolute;
+  z-index: 2; /* Под декоративным элементом */
+  top: 67%;
+  left: 50%;
+  transform: translate(-50%, -110%); /* Больше влево, чтобы заходить на цифру */
+  width: 650px;
+  text-align: left;
+  font-size: 4.4rem;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* 5. Секция с декорацией и подзаголовком - больше не flex-контейнер */
+.layout3 .bottomSection {
+  position: static;
+  display: block;
+  margin: 0;
+  gap: 0;
+}
+
+/* 6. Контейнер с RepelEffect позиционируем абсолютно */
+.layout3 .bottomSection > div:first-child {
+  position: absolute;
+  z-index: 3; /* ПОВЕРХ текста */
+  top: 37%; /* Используем top вместо transform */
+  left: 20%; /* Используем left вместо transform */
+}
+
+.layout3 .decorative {
+  width: 550px; /* Размер по дизайну */
+}
+
+/* 7. Подзаголовок тоже позиционируем абсолютно */
+.layout3 .subtitleAbove {
+  position: absolute;
+  z-index: 3; /* На том же слое, что и заголовок */
+  top: 70%;
+  left: 32%;
+  transform: translate(20%, 30%); /* Смещаем вправо и вниз */
+  width: 600px;
+  font-size: 2rem;
+  line-height: 1.4;
+  color: #444;
+  text-align: left;
+  margin: 0;
+  font-weight: 600;
+}
+
+
+/* --- LAYOUT 4: ТЕКСТ СВЕРХУ, ЦИФРА ПО ЦЕНТРУ, ТЕКСТ СПРАВА --- */
+
+.layout4 .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем все */
+  gap: 3rem;
+  position: relative;
+}
+
+.layout4 .topSection {
+  width: 100%;
+  text-align: left;
+  align-self: flex-start; /* Текст сверху слева */
+}
+
+.layout4 .title {
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Контейнер для цифры с декором - чуть левее центра */
+.layout4 .centerSection {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: -15%; /* Смещаем левее */
+  margin-top: -10%;
+}
+
+/* Обертка для цифры с декором */
+.layout4 .centerSection > div:first-child {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layout4 .number {
+  width: 400px;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Декоративный элемент поверх цифры - смещаем левее */
+.layout4 .centerSection > div:first-child > div {
+  position: absolute;
+  top: 10%;
+  left: 1%; /* Еще левее */
+  z-index: 2;
+}
+
+.layout4 .decorative {
+  width: 450px;
+  height: auto;
+}
+
+/* Текст справа - абсолютное позиционирование */
+.layout4 .rightSection {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 300px;
+}
+
+.layout4 .subtitle {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  color: #444;
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+}
+
+/* --- АДАПТИВНЫЕ СТИЛИ --- */
+
+@media (max-width: 1023px) {
+  .nomination {
+    padding: 3rem 6rem;
+  }
+  
+  .content {
+    gap: 2rem;
+  }
+  
+  .number {
+    width: 200px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+  }
+  /* layout1 */
+  .layout1 .title {
+    font-size: 3rem;
+  }
+  
+  .layout1 .subtitle {
+    padding-left: 8rem;
+    padding-bottom: 5rem;
+  }
+  
+  .layout1 .decorative {
+    width: 350px;
+  }
+  
+  .layout1 .decorativeWrapper {
+    left: 30%;
+  }
+  /* layout2 */
+  .layout2 .title {
+    font-size: 2.4rem;
+  }
+  
+  .layout2 .number {
+    width: 280px;
+  }
+  
+  .layout2 .decorative {
+    width: 350px;
+  }
+  
+  .layout2 .textAbove {
+    transform: translate(-35%, -70%);
+    width: 250px;
+  }
+  /* layout3 - Адаптация */
+  .layout3 .number { width: 350px; }
+  .layout3 .titleAbove { transform: translate(5%, -110%); width: 350px; font-size: 2.8rem; }
+  .layout3 .bottomSection > div:first-child { transform: translate(10%, -55%); }
+  .layout3 .decorative { width: 400px; }
+  .layout3 .subtitleAbove { transform: translate(15%, 40%); width: 300px; font-size: 1.1rem; }
+}
+
+@media (max-width: 767px) {
+  .nomination {
+    padding: 2rem 4.5rem;
+    min-height: auto;
+  }
+  
+  .content,
+  .layout1 .content,
+  .layout2 .content,
+  .layout3 .content,
+  .layout4 .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .number {
+    width: 180px;
+  }
+  
+  .title,
+  .layout1 .title,
+  .layout2 .title,
+  .layout3 .titleAbove { /* Добавил сюда titleAbove */
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  
+  .subtitle,
+  .layout1 .subtitle,
+  .layout2 .subtitle,
+  .layout3 .subtitleAbove { /* Добавил сюда subtitleAbove */
+    font-size: 1.1rem;
+    text-align: center;
+    padding-left: 0;
+    padding-bottom: 0;
+  }
+  /* layout1 */
+  .layout1 .textContainer {
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .layout1 .decorativeWrapper {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+  }
+  
+  .layout1 .decorative {
+    width: 250px;
+  }
+  
+  /* layout2 на мобильных */
+  .layout2 .numberContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    order: 1;
+  }
+  
+  .layout2 .textAbove {
+    position: static;
+    transform: none;
+    width: auto;
+    pointer-events: auto;
+    margin-top: 1rem;
+  }
+  
+  .layout2 .decorative {
+    width: 280px;
+    order: 2;
+  }
+  /* layout3 на мобильных - возвращаем в колонку */
+  .layout3 .content {
+    position: static;
+    display: flex; /* Возвращаем flex */
+    min-height: unset;
+  }
+  .layout3 .numberContainer, .layout3 .bottomSection {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: auto;
+  }
+  .layout3 .bottomSection > div:first-child {
+    position: static;
+    transform: none;
+  }
+  .layout3 .titleAbove, .layout3 .subtitleAbove {
+    position: static;
+    transform: none;
+    width: auto;
+    text-align: center;
+  }
+  .layout3 .number { width: 250px; } /* Увеличим на мобилке */
+  .layout3 .decorative { width: 280px; }
+  
+  /* layout4 */
+  .layout4 .centerSection {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .layout4 .rightSection {
+    text-align: center;
+  }
+  .layout4 .number {
+    width: 250px;
+  }
+  .layout4 .decorative {
+    width: 280px;
+  }
+}
